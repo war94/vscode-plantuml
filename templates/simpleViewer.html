@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="css/preview.css">
+        <style>
+            svg text { 
+                cursor: pointer;
+            }
+            
+            svg text:hover {
+                stroke: black;
+            }
+
+            #spinner-container {
+                background: rgba(0, 0, 0, 0.6);
+            }
+
+            #error-warning #errmsg {
+                display: block;
+                padding: 1em;
+                background-color: black;
+                opacity: 0.8;
+                border-radius: 5px;
+                border: 1px solid red;
+            }
+
+            .image-container {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                overflow: scroll;
+            }
+
+            .image-container.active {
+                cursor: grabbing;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="image-container" class="image-container">
+            ${imageData}
+        </div>
+
+        <div style="display:none;">
+            <p id="status">${status}</p>
+            <a id="sendStatus" href=""></a>
+            <p id="settings">${settings}</p>
+        </div>
+
+        <div id="snap-indicator-container">
+            <p>
+                <i class="material-icons snap-indicator snap-indicator-top" title="${localize(37, null)}"
+                    style="transform:rotate(180deg);">vertical_align_bottom</i>
+                <i class="material-icons snap-indicator snap-indicator-left" title="${localize(38, null)}"
+                    style="transform:rotate(90deg);">vertical_align_bottom</i>
+                <i class="material-icons snap-indicator snap-indicator-bottom"
+                    title="${localize(35, null)}">vertical_align_bottom</i>
+                <i class="material-icons snap-indicator snap-indicator-right" title="${localize(36, null)}"
+                    style="transform:rotate(-90deg);">vertical_align_bottom</i>
+            </p>
+        </div>
+        <div id="tip-container" class="fixed-center">
+            <p id="tip"></p>
+        </div>
+        <div id="spinner-container">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <div>
+                <span>${localize(9, null)}</span>
+            </div>
+        </div>
+
+        <div id="error-warning">
+            <i class="material-icons">${hasError}</i>
+            <div id="errmsg">
+                <p id="errtxt">${error}</p>
+                <img id="image-error" src="${imageError}" style="max-width: 100%;">
+            </div>
+        </div>
+
+        <script src="js/simpleViewer.js"></script>
+    </body>
+</html>
