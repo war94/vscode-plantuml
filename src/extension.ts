@@ -5,7 +5,7 @@ import * as vscode from 'vscode';
 import * as nls from "vscode-nls";
 
 import { config } from './plantuml/config';
-import { previewer } from './providers/previewer';
+import { simpleViewer } from './providers/simpleViewer';
 import { Symbol } from "./providers/symboler";
 import { Completion } from "./providers/completion";
 import { Signature } from "./providers/signature";
@@ -28,7 +28,7 @@ import { Diagnoser } from './providers/diagnoser';
 export function activate(context: vscode.ExtensionContext) {
     contextManager.set(context);
     try {
-        const ext = vscode.extensions.getExtension("jebbs.plantuml");
+        const ext = vscode.extensions.getExtension("well-ar.plantuml");
         const version = ext.packageJSON.version;
         notifyOnNewVersion(context, version);
 
@@ -44,7 +44,7 @@ export function activate(context: vscode.ExtensionContext) {
             new Completion(),
             new Signature(),
             new Diagnoser(ext),
-            previewer,
+            simpleViewer,
             config,
             outputPanel,
             bar,
