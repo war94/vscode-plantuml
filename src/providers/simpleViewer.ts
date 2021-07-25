@@ -29,9 +29,7 @@ class SimpleViewer extends vscode.Disposable {
     private task: RenderTask;
     private taskKilling: boolean;
 
-    private images: string[];
     private imageError: string;
-    private imageUri: vscode.Uri;
     private imageData: string;
     private error: string = "";
     private zoomUpperLimit: boolean = false;
@@ -51,7 +49,6 @@ class SimpleViewer extends vscode.Disposable {
     reset() {
         this.rendered = null;
         this.previewPageStatus = "";
-        this.images = [];
         this.imageError = "";
         this.error = "";
     }
@@ -59,7 +56,7 @@ class SimpleViewer extends vscode.Disposable {
     updateWebView(): string {
         let env = {
             localize: localize,
-            imageData: this.imageData,
+            imageData: this.imageData ? this.imageData : "",
             imageError: "",
             error: "",
             hasError: "",
@@ -71,10 +68,6 @@ class SimpleViewer extends vscode.Disposable {
                 showSnapIndicators: config.previewSnapIndicators,
             }),
         } as any;
-        
-        if(this.imageUri && this._uiPreview._panel && this._uiPreview._panel.webview) {
-            env.imageUri = this._uiPreview._panel.webview.asWebviewUri(this.imageUri);
-        }
 
         try {
             switch (this.status) {
@@ -138,7 +131,6 @@ class SimpleViewer extends vscode.Disposable {
         if (changed) {
             this.rendered = current;
             this.error = "";
-            this.images = [];
             this.imageError = "";
             this.previewPageStatus = "";
         }
@@ -149,7 +141,6 @@ class SimpleViewer extends vscode.Disposable {
         if (!diagram) {
             this.status = previewStatus.error;
             this.error = localize(3, null);
-            this.images = [];
             this.updateWebView();
             return;
         }
@@ -166,7 +157,6 @@ class SimpleViewer extends vscode.Disposable {
                 this.error = "";
                 this.imageError = "";
                 
-                this.imageUri = vscode.Uri.parse(path.join(contextManager.context.extensionPath, "templates", "temp.svg"));
                 this.imageData = result.pop().toString("utf8");
                 
                 this.updateWebView();

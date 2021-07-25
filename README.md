@@ -1,5 +1,11 @@
 # PlantUML README
 
+## Fork
+
+This fork contains a different viewer, with better zoom performance, and allows you to click on diagram texts to focus the position on current editor window.
+
+---
+
 Rich PlantUML support for Visual Studio Code.
 
 [![Build Status](https://travis-ci.org/qjebbs/vscode-plantuml.svg?branch=master)](https://travis-ci.org/qjebbs/vscode-plantuml)
