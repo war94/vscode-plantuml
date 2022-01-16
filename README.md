@@ -10,11 +10,11 @@ Rich PlantUML support for Visual Studio Code.
 
 [![Build Status](https://travis-ci.org/qjebbs/vscode-plantuml.svg?branch=master)](https://travis-ci.org/qjebbs/vscode-plantuml)
 
-[Donate by Paypal](https://paypal.me/qjebbs "If you like this plugin, you can buy me a coffee. Feel free if you don't want to, since it's free!")
+<!-- [Donate by Paypal](https://paypal.me/qjebbs "If you like this plugin, you can buy me a coffee. Feel free if you don't want to, since it's free!")
 |
 [Donate by AliPay](https://github.com/qjebbs/vscode-plantuml/blob/master/images/alipay.png?raw=true)
 |
-[PlantUML Document](http://plantuml.com/sitemap-language-specification)
+[PlantUML Document](http://plantuml.com/sitemap-language-specification) -->
 
 ## Notice
 
@@ -32,7 +32,7 @@ If not, like the official <https://www.plantuml.com/plantuml>, the extension fal
 
 ## Features
 
-- Preview Diagram, Press `Alt-D` to start PlantUML preview.
+- Preview Diagram, Press <kbd>Alt</kbd> + <kbd>D</kbd> to start PlantUML preview (<kbd>option</kbd> + <kbd>D</kbd> on MacOS).
     - Auto update.
     - Zoom & scroll support.
     - Multi-Page Diagram support.
@@ -92,7 +92,7 @@ It's necessary to have following installed:
 #### Quick Install for Mac
 
 ```sh
-brew install --cask adoptopenjdk
+brew install --cask temurin
 brew install graphviz
 ```
 
@@ -290,6 +290,8 @@ Disadvantages:
 
 - If don't have one, set up [following the instructions](https://github.com/plantuml/plantuml-server), run with Docker is recommended. Find the server address, like: `http://localhost:8080`, or `http://192.168.1.100:8080` which is ready for sharing to your team.
 
+- Another option for running a PlantUML server on your local machine is to use the built in picowebserver, which can be as simple as running `java -jar plantuml.jar -picoweb`,  read more here: <https://plantuml.com/picoweb>
+
 - Open user setting, and configure like:
 
 ```text
@@ -343,10 +345,11 @@ Preview Settings:
 
 - `plantuml.previewAutoUpdate`: Dedecides if automatically update the preview window.
 
-URL Generating Settings:
+Other Settings:
 
 - `plantuml.urlFormat`: URL format. Leave it blank to pick format everytime you generate a URL.
 - `plantuml.urlResult`: URL result type. Simple URL or ready for MarkDown use.
+- `plantuml.lintDiagramNoName`: Decides if it should lint when diagram is unmaned.
 
 ## Known Issues
 

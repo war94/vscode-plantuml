@@ -3,7 +3,7 @@
   "displayName": "PlantUML - Simple Viewer",
   "description": "Rich PlantUML support for Visual Studio Code.",
   "icon": "images/icon.png",
-  "version": "2.15.0",
+  "version": "2.17.0",
   "publisher": "well-ar",
   "engines": {
     "vscode": "^1.57.0"
@@ -312,6 +312,12 @@
           "scope": "resource",
           "default": [],
           "description": "%plantuml.configuration.includepaths%"
+        },
+        "plantuml.lintDiagramNoName": {
+          "type": "boolean",
+          "scope": "resource",
+          "default": true,
+          "description": "%plantuml.configuration.lintDiagramNoName%"
         },
         "plantuml.commandArgs": {
           "type": "array",
