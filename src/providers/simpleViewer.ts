@@ -225,8 +225,6 @@ class SimpleViewer extends vscode.Disposable {
     }
 
     searchText(searchText: string) {
-        // if (!currentDiagram()) return;
-
         const document = this.editor.document;
         const text = document.getText();
         const index = text.indexOf(searchText);
@@ -263,6 +261,9 @@ class SimpleViewer extends vscode.Disposable {
             setTimeout(() => {
                 if (new Date().getTime() - lastTimestamp >= 400) {
                     if (!this.TargetChanged) return;
+        
+                    this.editor = vscode.window.activeTextEditor;
+
                     this.update(true);
                 }
             }, 500);
