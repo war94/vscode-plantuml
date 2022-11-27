@@ -23,11 +23,20 @@
         settings = JSON.parse(document.getElementById("settings").innerHTML);
 
         if (status && imageContainer && svgImage) {
-            imageContainer.scrollLeft = status.scrollLeft;
-            imageContainer.scrollTop = status.scrollTop;
             svgImage.style.width = status.width;
             svgImage.style.height = "auto";
+            svgImage.style.position = "relative";
+            svgImage.style.left = "25%";
+            svgImage.style.top = "25%";
             
+            imageContainer.scrollLeft = status.scrollLeft;
+            imageContainer.scrollTop = status.scrollTop;
+            
+            if (!status.width) {
+                imageContainer.scrollLeft = imageContainer.scrollWidth * 0.25;
+                imageContainer.scrollTop = imageContainer.scrollHeight * 0.25;
+            }
+
             initHandlers();
         }
 
@@ -66,22 +75,32 @@
     }
 
     function handleZoom() {
-        let imageWidth = svgImage.width.baseVal.value;
+        let imageWidth = parseFloat(svgImage.style.width);
 
-        svgImage.addEventListener("wheel", (ev) => {
+        imageContainer.addEventListener("wheel", (ev) => {
             if (!ev.altKey) {
                 return;
             }
-
+            
             ev.preventDefault();
+
+            if (imageWidth < 10) {
+                imageWidth = 10;
+            }
 
             if (ev.deltaY > 0) {
                 imageWidth = parseInt((imageWidth + (imageWidth * 0.1)));
+                
+                imageContainer.scrollLeft = imageContainer.scrollLeft + (imageWidth * 0.05);
+                imageContainer.scrollTop = imageContainer.scrollTop + (imageWidth * 0.05);
             } else {
                 imageWidth = parseInt((imageWidth - (imageWidth * 0.1)));
+
+                imageContainer.scrollLeft = imageContainer.scrollLeft - (imageWidth * 0.05);
+                imageContainer.scrollTop = imageContainer.scrollTop - (imageWidth * 0.05);
             }
 
-            svgImage.style.width =  imageWidth + "px";
+            svgImage.style.width = imageWidth + "px";
             saveStatus();
         });
     }

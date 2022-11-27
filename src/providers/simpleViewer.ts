@@ -117,11 +117,13 @@ class SimpleViewer extends vscode.Disposable {
     }
     private killTask(process: child_process.ChildProcess) {
         return new Promise((resolve, reject) => {
-            process.kill('SIGINT');
-            process.on('exit', (code) => {
-                // console.log(`killed ${process.pid} with code ${code}!`);
+            process.on('exit', (_code, _sig) => {
                 resolve(true);
             });
+            
+            if(!process.kill('SIGINT') && process.exitCode != null){
+                resolve(true);
+            }
         })
     }
     get TargetChanged(): boolean {
@@ -234,6 +236,7 @@ class SimpleViewer extends vscode.Disposable {
 
         this.editor.selection = new vscode.Selection(position, positionEnd);
         this.editor.revealRange(new vscode.Range(position, positionEnd), vscode.TextEditorRevealType.InCenter);
+        vscode.window.showTextDocument(document, this.editor.viewColumn);
     }
 
     startWatch() {

@@ -33,11 +33,18 @@
             .image-container.active {
                 cursor: grabbing;
             }
+
+            .image-area {
+                width: 200%;
+                height: 200%;
+            }
         </style>
     </head>
     <body>
         <div id="image-container" class="image-container">
-            ${imageData}
+            <div class="image-area">
+                ${imageData}
+            </div>
         </div>
 
         <div style="display:none;">
