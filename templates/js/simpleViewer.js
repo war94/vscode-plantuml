@@ -31,12 +31,13 @@
             
             imageContainer.scrollLeft = status.scrollLeft;
             imageContainer.scrollTop = status.scrollTop;
-            
-            if (!status.width) {
-                imageContainer.scrollLeft = imageContainer.scrollWidth * 0.25;
-                imageContainer.scrollTop = imageContainer.scrollHeight * 0.25;
-            }
 
+            if (!status.width) {
+                svgImage.style.width = window.innerWidth + "px";
+                imageContainer.scrollLeft = window.innerWidth * 0.5;
+                imageContainer.scrollTop = window.innerHeight * 0.5;
+            }
+            
             initHandlers();
         }
 
@@ -75,10 +76,15 @@
     }
 
     function handleZoom() {
+        const isMac = navigator.userAgentData.platform.toUpperCase().indexOf('MAC') >= 0;
         let imageWidth = parseFloat(svgImage.style.width);
 
+        imageContainer.addEventListener("scroll", (ev) => {
+            saveStatus();
+        });
+
         imageContainer.addEventListener("wheel", (ev) => {
-            if (!ev.altKey) {
+            if (isMac ? !ev.altKey : !ev.ctrlKey) { 
                 return;
             }
             
@@ -87,22 +93,24 @@
             if (imageWidth < 10) {
                 imageWidth = 10;
             }
+            
+            let scaleFactor = 0.1;
+            let scaleUp = ev.deltaY < 0;
+            let scrollDiff = imageWidth * (scaleFactor/2);
 
-            if (ev.deltaY > 0) {
-                imageWidth = parseInt((imageWidth + (imageWidth * 0.1)));
-                
-                imageContainer.scrollLeft = imageContainer.scrollLeft + (imageWidth * 0.05);
-                imageContainer.scrollTop = imageContainer.scrollTop + (imageWidth * 0.05);
+            if (scaleUp) {
+                imageWidth = parseInt((imageWidth + (imageWidth * scaleFactor)));
+                imageContainer.scrollLeft = imageContainer.scrollLeft + scrollDiff;
+                imageContainer.scrollTop = imageContainer.scrollTop + scrollDiff;
             } else {
-                imageWidth = parseInt((imageWidth - (imageWidth * 0.1)));
-
-                imageContainer.scrollLeft = imageContainer.scrollLeft - (imageWidth * 0.05);
-                imageContainer.scrollTop = imageContainer.scrollTop - (imageWidth * 0.05);
+                imageWidth = parseInt((imageWidth - (imageWidth * scaleFactor)));
+                imageContainer.scrollLeft = imageContainer.scrollLeft - scrollDiff;
+                imageContainer.scrollTop = imageContainer.scrollTop - scrollDiff;
             }
 
             svgImage.style.width = imageWidth + "px";
             saveStatus();
-        });
+        },  { passive: false });
     }
 
     function handleMove() {
