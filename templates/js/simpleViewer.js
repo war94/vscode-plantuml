@@ -84,10 +84,6 @@
         });
 
         imageContainer.addEventListener("wheel", (ev) => {
-            if (isMac ? !ev.altKey : !ev.ctrlKey) { 
-                return;
-            }
-            
             ev.preventDefault();
 
             if (imageWidth < 10) {

@@ -2,7 +2,7 @@
 
 ## Fork
 
-This fork contains a different viewer, with better zoom performance, and allows you to click on diagram texts to focus the position on current editor window.
+This fork contains a different viewer, with better rendering performance, and allows you to click on diagram texts to focus the position on current editor window.
 
 ---
 

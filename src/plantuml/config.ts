@@ -8,7 +8,8 @@ import { javaCommandExists, testJava } from './tools';
 
 export const RenderType = {
     Local: 'Local',
-    PlantUMLServer: 'PlantUMLServer'
+    PlantUMLServer: 'PlantUMLServer',
+    LocalServer: 'LocalServer'
 };
 
 class Config extends ConfigReader {
